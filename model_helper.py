@@ -13,7 +13,12 @@ def get_model():
     """Download the model from Google Drive if not already present."""
     if not os.path.exists(MODEL_PATH):
         os.makedirs("model", exist_ok=True)
-        gdown.download(DRIVE_URL, MODEL_PATH, quiet=False)
+        gdown.download(
+            "https://drive.google.com/uc?export=download&id=1CkqoV-O_pN0hQApX4xnlQ2k8LZwse48O",
+            MODEL_PATH,
+            quiet=False,
+            use_cookies=False
+        )
     return MODEL_PATH
 trained_model = None
 class_names = ['Front Breakage', 'Front Crushed', 'Front Normal', 'Rear Breakage', 'Rear Crushed', 'Rear Normal']
@@ -67,3 +72,4 @@ def predict(image_path):
         output = trained_model(image_tensor)
         _, predicted_class = torch.max(output, 1)
         return class_names[predicted_class.item()]
+
